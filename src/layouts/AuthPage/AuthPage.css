@@ -1,0 +1,31 @@
+.auth-page {
+  min-height: 100vh;
+  background-size: cover !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.auth-page__title {
+  color: white;
+  margin-top: 5px;
+}
+
+.auth-page__logo {
+  width: 100px;
+  height: auto;
+  fill: white;
+  border: 3px solid white;
+  border-radius: 50%;
+  padding: 10px;
+}
+
+.auth-page__action {
+  background: white;
+  padding: 30px;
+  max-width: 400px;
+  text-align: center;
+  border-radius: 5px;
+  box-shadow: 3px 3px 11px rgba(0, 0, 0, 0.25);
+}

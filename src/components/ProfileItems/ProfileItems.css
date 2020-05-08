@@ -1,0 +1,17 @@
+.icon-selector i{
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.icon-selector .selected-icon{
+    border: 2px solid gray;
+    border-radius: 5px;
+}
+
+.player-icon img{
+    width: 100px;
+    padding: 10px;
+}
+.player-icon{
+    border:2px solid white;
+}

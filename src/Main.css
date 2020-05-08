@@ -1,0 +1,23 @@
+nav {
+  background: #bc4f07;
+}
+
+.btn {
+  background: #005236;
+}
+
+.btn:hover {
+  background: #005236;
+}
+
+.btn:focus,
+.btn-large:focus,
+.btn-small:focus,
+.btn-floating:focus {
+  background: #017e54;
+}
+
+input:focus {
+  border-bottom: 1px solid #005236 !important;
+  box-shadow: 0 1px 0 0 #005236 !important;
+}

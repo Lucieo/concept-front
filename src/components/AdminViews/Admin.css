@@ -1,0 +1,21 @@
+.admin__info {
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.admincontrols__box {
+  padding: 15px 20px;
+  margin: 30px auto;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  max-width: 300px;
+  text-align: center;
+}
+
+.admincontrols__title {
+  font-weight: bold;
+}
+.admincontrols__box p {
+  margin: 0;
+  margin-bottom: 10px;
+}

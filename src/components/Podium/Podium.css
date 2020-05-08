@@ -1,0 +1,10 @@
+.podium__wrapper {
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.podium__wrapper p {
+  padding: 0;
+  margin: 0;
+}

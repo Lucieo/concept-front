@@ -1,0 +1,21 @@
+.nav__title{
+    font-size: 1.5rem;
+}
+
+.nav__right-menu, .brand-logo{
+    display: flex!important;
+    flex-direction: row-reverse!important;
+}
+
+nav{
+    box-shadow: none;
+}
+
+.brand-logo__img{
+    width: 40px;
+    height: 40px;
+    margin-right: 5px;
+    fill:white;
+    margin-top:7px
+
+}

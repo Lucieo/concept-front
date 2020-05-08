@@ -1,0 +1,8 @@
+.gamestatus__wrapper p {
+  font-weight: bold;
+}
+
+.gamestatus__svg {
+  width: 70px;
+  height: 70px;
+}
