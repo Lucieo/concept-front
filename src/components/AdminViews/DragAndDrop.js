@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import conceptsListInfo from "./concepts";
+import conceptsListInfo from "../../data/concepts";
 import uuid from "react-uuid";
 import ReactTooltip from "react-tooltip";
+import { MODIFY_CONCEPTS_LIST, MODIFY_CONCEPT } from "graphQL/mutations";
+import { useMutation } from "@apollo/react-hooks";
 
 const getItemStyle = (isDragging, draggableStyle) => ({
   ...draggableStyle,
@@ -22,6 +24,25 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   justifyContent: "center",
 });
 
+const getLineItemStyle = (isDragging, draggableStyle) => ({
+  ...draggableStyle,
+  userSelect: "none",
+  padding: 5,
+  margin: 5,
+  display: "inline-block",
+  marginLeft: 5,
+  borderRadius: 5,
+  boxShadow: "0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)",
+  width: "100px!important",
+  background: isDragging ? "lightgreen" : "white",
+  width: "60px",
+  height: "60px",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  cursor: "pointer",
+});
+
 const getListStyle = (isDraggingOver) => ({
   background: isDraggingOver ? "lightblue" : "lightgrey",
   width: "100%",
@@ -31,23 +52,53 @@ const getListStyle = (isDraggingOver) => ({
   flexWrap: "wrap",
 });
 
-const GamePanel = () => {
+const GamePanel = ({ gameInfo }) => {
+  const { currentWord } = gameInfo;
+  const gameId = gameInfo.id;
   const [conceptsList, setConcepts] = useState(conceptsListInfo);
   const [selected, setSelected] = useState([[]]);
 
-  const removeConcept = (elementIdx, lineIdx) => {
-    let newLine = [...selected[lineIdx]];
-    newLine.splice(elementIdx, 1);
-    let newSelected = [...selected];
-    newSelected[lineIdx] = newLine;
-    setSelected(newSelected);
-  };
+  const [listIndex, setListIndex] = useState();
+  const [listAction, setListAction] = useState();
+  const [conceptAction, setConceptAction] = useState();
+  const [conceptId, setConceptId] = useState();
+
+  const [modifyConceptsList] = useMutation(MODIFY_CONCEPTS_LIST, {
+    variables: {
+      gameId,
+      listIndex,
+      action: listAction,
+    },
+  });
+
+  const [modifyConcept] = useMutation(MODIFY_CONCEPT, {
+    variables: {
+      gameId,
+      conceptId,
+      listIndex,
+      action: conceptAction,
+    },
+  });
 
   const deleteLine = (idx) => {
     const newlist = [...selected];
     newlist.splice(idx, 1);
     setSelected(newlist);
+    setListAction("remove");
+    setListIndex(idx);
   };
+
+  const addLine = () => {
+    setListIndex(selected.length);
+    selected.length < 4 && setSelected([...selected, []]);
+    setListAction("add");
+  };
+
+  useEffect(() => {
+    if (listAction && listIndex) {
+      modifyConceptsList();
+    }
+  }, [listAction]);
 
   const onDragEnd = (result) => {
     const { source, destination } = result;
@@ -65,33 +116,82 @@ const GamePanel = () => {
     return;
   };
 
+  const removeConcept = (elementIdx, lineIdx) => {
+    let newLine = [...selected[lineIdx]];
+    newLine.splice(elementIdx, 1);
+    let newSelected = [...selected];
+    newSelected[lineIdx] = newLine;
+    setSelected(newSelected);
+  };
+
   return (
     <>
-      <button
-        className={`btn ${selected.length >= 4 && "disabled"}`}
-        onClick={() => selected.length < 4 && setSelected([...selected, []])}
-      >
-        Ajouter un concept
-      </button>
       <DragDropContext onDragEnd={onDragEnd}>
-        {selected.map((el, idx) =>
-          SelectionLine(el, idx, () => deleteLine(idx), removeConcept)
-        )}
-        <h4>Les concepts</h4>
-        <Droppable droppableId="concepts" isDropDisabled={true}>
-          {(provided, snapshot) => {
-            console.log(provided.placeholder);
-            return (
-              <div
-                ref={provided.innerRef}
-                style={getListStyle(snapshot.isDraggingOver)}
-              >
-                {conceptsList.map((item, index) => conceptCard(item, index))}
-                {provided.placeholder}
-              </div>
-            );
-          }}
-        </Droppable>
+        <div style={{ display: "flex", height: "calc(100vh - 210px)" }}>
+          <div
+            style={{
+              background: "white",
+              right: 0,
+              top: 0,
+              bottom: 0,
+              width: "30%",
+              padding: 20,
+              height: "100%",
+              overflow: "scroll",
+            }}
+          >
+            <button
+              className={`btn ${selected.length >= 4 && "disabled"}`}
+              onClick={addLine}
+            >
+              Ajouter un concept
+            </button>
+            {selected.length >= 4 && <p>Maximum 4 concepts!</p>}
+            {selected.map((el, idx) =>
+              SelectionLine(el, idx, () => deleteLine(idx), removeConcept)
+            )}
+          </div>
+          <div
+            style={{
+              width: "70%",
+              height: "100%",
+              overflow: "scroll",
+            }}
+          >
+            <div
+              style={{
+                padding: 10,
+                margin: 0,
+                background: "white",
+                position: "fixed",
+                width: "100%",
+              }}
+            >
+              <h4>Les concepts</h4>
+              <p style={{ fontWeight: "bold" }}>
+                Votre mot est : {currentWord}
+              </p>
+            </div>
+            <div style={{ paddingTop: 125 }}>
+              <Droppable droppableId="concepts" isDropDisabled={true}>
+                {(provided, snapshot) => {
+                  console.log(provided.placeholder);
+                  return (
+                    <div
+                      ref={provided.innerRef}
+                      style={getListStyle(snapshot.isDraggingOver)}
+                    >
+                      {conceptsList.map((item, index) =>
+                        conceptCard(item, index)
+                      )}
+                      {provided.placeholder}
+                    </div>
+                  );
+                }}
+              </Droppable>
+            </div>
+          </div>
+        </div>
       </DragDropContext>
     </>
   );
@@ -128,27 +228,39 @@ const conceptCard = (
                 ref={provided.innerRef}
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}
-                style={getItemStyle(
-                  snapshot.isDragging,
-                  provided.draggableProps.style
-                )}
+                style={
+                  isLine
+                    ? getLineItemStyle(
+                        snapshot.isDragging,
+                        provided.draggableProps.style
+                      )
+                    : getItemStyle(
+                        snapshot.isDragging,
+                        provided.draggableProps.style
+                      )
+                }
+                onClick={() => {
+                  isLine && removeConcept();
+                }}
               >
                 {isLine && (
                   <span
                     style={{
-                      cursor: "pointer",
                       fontWeight: "bold",
                       color: "#005236",
                       height: "100%",
                     }}
-                    onClick={removeConcept}
                   >
                     X
                   </span>
                 )}
                 <img
                   src={`/images/concepts/${item.img}`}
-                  style={{ width: 80, height: 80 }}
+                  style={
+                    isLine
+                      ? { width: 40, height: 40 }
+                      : { width: 80, height: 80 }
+                  }
                 />
               </div>
             </a>
@@ -176,7 +288,7 @@ const conceptCard = (
 const SelectionLine = (lineInfo, idx, deleteAction, removeConcept) => {
   return (
     <div key={idx}>
-      <h4>
+      <h6>
         <button
           style={{ padding: "0 10px", borderRadius: "50%" }}
           className="btn outlined"
@@ -185,7 +297,16 @@ const SelectionLine = (lineInfo, idx, deleteAction, removeConcept) => {
           <i className="material-icons">delete</i>
         </button>
         {idx === 0 ? " Concept Principal" : ` Concept ${idx + 1}`}
-      </h4>
+      </h6>
+      {lineInfo.length ? (
+        <>
+          {lineInfo.map((el, idx) => (
+            <p>{el.text}</p>
+          ))}
+        </>
+      ) : (
+        <p>Ajoutez des concepts</p>
+      )}
       <Droppable droppableId={`${idx}`}>
         {(provided, snapshot) => (
           <div

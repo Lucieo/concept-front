@@ -19,3 +19,40 @@
   margin: 0;
   margin-bottom: 10px;
 }
+
+.wordselect__container {
+  width: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 104px);
+}
+
+.wordselect__card {
+  max-width: 500px;
+  padding: 30px;
+  min-height: 400px;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+.no-inspiration {
+  border: 1px solid #005236 !important;
+  background: white !important;
+  color: #005236;
+  display: inline-block;
+}
+
+.adminFeedBack__title {
+  font-weight: bold;
+  margin: 0;
+}
+
+.adminFeedBack__wrapper {
+  max-height: 100px;
+  overflow: scroll;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  padding: 10px;
+}

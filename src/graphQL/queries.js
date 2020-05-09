@@ -33,28 +33,11 @@ export const GET_GAME_INFO = gql`
       }
       creator
       currentWord
-      turnPoints {
-        player
-        points
-      }
       gamePoints {
         player
         points
       }
-      turnDeck {
-        owner
-        card {
-          id
-          fileName
-        }
-      }
-      turnVotes {
-        owner
-        card {
-          id
-          fileName
-        }
-      }
+      conceptsLists
     }
   }
 `;

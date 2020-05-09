@@ -1,0 +1,28 @@
+.playerView__wrapper {
+  display: flex;
+  height: calc(100vh - 110px);
+}
+
+.playerView__conceptDisplay {
+  width: 60%;
+  padding: 10px;
+}
+
+.playerView__chatBox {
+  width: 40%;
+  border-right: 1px solid lightgray;
+  padding: 10px;
+  margin: 0;
+}
+
+.chatBox__feedback {
+  height: 90%;
+  display: flex;
+  overflow: scroll;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.chatBox__input {
+  height: 10%;
+}

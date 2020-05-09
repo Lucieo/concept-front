@@ -59,13 +59,6 @@ const Game = (props) => {
     ],
   });
 
-  useEffect(() => {
-    return function cleanup() {
-      console.log("LEAVING GAME!");
-      leaveGame();
-    };
-  }, []);
-
   if (loading) return <Loading />;
 
   const selectGameStatus = ({ status }) => {
@@ -93,7 +86,7 @@ const Game = (props) => {
 
   return (
     <div className="game-main">
-      <div className="container game-main__container">
+      <div className=" game-main__container">
         {gameInfo && selectGameStatus(gameInfo)}
       </div>
     </div>

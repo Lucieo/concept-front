@@ -13,24 +13,6 @@ export const GAME_UPDATE = gql`
         icon
       }
       currentWord
-      turnVotes {
-        owner
-        card {
-          id
-          fileName
-        }
-      }
-      turnDeck {
-        owner
-        card {
-          id
-          fileName
-        }
-      }
-      turnPoints {
-        player
-        points
-      }
       gamePoints {
         player
         points
@@ -52,18 +34,23 @@ export const PLAYER_UPDATE_SUBSCRIPTION = gql`
   }
 `;
 
-export const GAME_ACTION = gql`
-  subscription GameAction($gameId: ID!) {
-    gameAction(gameId: $gameId) {
-      gameId
-      actionType
-      action {
-        owner
-        card {
-          id
-          fileName
-        }
+export const GUESS_UPDATE = gql`
+  subscription GuessUpdate($gameId: ID!) {
+    guessUpdate(gameId: $gameId) {
+      word
+      player {
+        name
+        icon
       }
+      winner
+    }
+  }
+`;
+
+export const CONCEPTS_UPDATE = gql`
+  subscription ConceptsUpdate($gameId: ID!) {
+    conceptsUpdate(gameId: $gameId) {
+      concepts
     }
   }
 `;
