@@ -6,21 +6,21 @@ import PlayerListIcon from "components/PlayerIcons/PlayerListIcon";
 
 const GameOver = ({ gameInfo }) => {
   const { gamePoints, players } = gameInfo;
-  const podium = gamePoints
-    .map((point) => {
-      const playerInfo = players.find((player) => point.player === player.id);
-      return { points: point.points, player: playerInfo };
-    })
-    .sort((a, b) => b.points - a.points);
-  const winnerPoints = podium[0].points;
-  const winners = podium.filter((player) => player.points >= winnerPoints);
-  const winnersIds = winners.map((el) => el.player.id);
+  // const podium = gamePoints
+  //   .map((point) => {
+  //     const playerInfo = players.find((player) => point.player === player.id);
+  //     return { points: point.points, player: playerInfo };
+  //   })
+  //   .sort((a, b) => b.points - a.points);
+  // const winnerPoints = podium[0].points;
+  // const winners = podium.filter((player) => player.points >= winnerPoints);
+  // const winnersIds = winners.map((el) => el.player.id);
 
   return (
     <div className="center">
       <h3>GAME OVER BITCHES</h3>
       <img className="game-over__gif" src={endGif} alt="artist" />
-      <div>
+      {/* <div>
         {winners.length === 1 ? (
           <SingleWinner winner={winners[0]} />
         ) : (
@@ -39,7 +39,7 @@ const GameOver = ({ gameInfo }) => {
               />
             ))}
         </ul>
-      </div>
+      </div> */}
     </div>
   );
 };

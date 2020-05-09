@@ -33,10 +33,6 @@ export const GET_GAME_INFO = gql`
       }
       creator
       currentWord
-      gamePoints {
-        player
-        points
-      }
       conceptsLists
     }
   }

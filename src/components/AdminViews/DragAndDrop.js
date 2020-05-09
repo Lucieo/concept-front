@@ -95,8 +95,9 @@ const GamePanel = ({ gameInfo }) => {
   };
 
   useEffect(() => {
-    if (listAction && listIndex) {
+    if (listAction) {
       modifyConceptsList();
+      setListAction();
     }
   }, [listAction]);
 
@@ -107,6 +108,9 @@ const GamePanel = ({ gameInfo }) => {
       const updatedSelected = Array.from(selected[destinationId]);
       const element = conceptsList[source.index];
       if (updatedSelected.map((el) => el.img).indexOf(element.img) === -1) {
+        setListIndex(parseInt(destinationId));
+        setConceptId(element.img);
+        setConceptAction("add");
         updatedSelected.push({ ...element, id: uuid() });
       }
       const newSelectedList = [...selected];
@@ -117,12 +121,22 @@ const GamePanel = ({ gameInfo }) => {
   };
 
   const removeConcept = (elementIdx, lineIdx) => {
+    setListIndex(lineIdx);
+    setConceptId(selected[lineIdx][elementIdx]);
+    setConceptAction("remove");
     let newLine = [...selected[lineIdx]];
     newLine.splice(elementIdx, 1);
     let newSelected = [...selected];
     newSelected[lineIdx] = newLine;
     setSelected(newSelected);
   };
+
+  useEffect(() => {
+    if (conceptAction) {
+      modifyConcept();
+      setConceptAction();
+    }
+  }, [conceptAction]);
 
   return (
     <>
@@ -220,7 +234,7 @@ const conceptCard = (
               id={item.id}
               place="top"
               type="dark"
-              effect="float"
+              effect="solid"
               multiline={true}
             />
             <a data-for={item.id} data-tip={item.text} data-iscapture="true">

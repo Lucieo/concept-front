@@ -5,7 +5,7 @@ import { useMutation } from "@apollo/react-hooks";
 
 export default function HasWon({
   player,
-  word,
+  currentWord,
   turnMaster,
   isTurnMaster = false,
   gameId = undefined,
@@ -20,7 +20,7 @@ export default function HasWon({
         />
         <h5>{player.name} a trouvé!</h5>
         <p>le mot était</p>
-        <h4>{word}</h4>
+        <h4>{currentWord}</h4>
         <p>
           {player.name} gagne 2 points, {turnMaster.name} gagne 1 point.
         </p>

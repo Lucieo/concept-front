@@ -13,10 +13,7 @@ export const GAME_UPDATE = gql`
         icon
       }
       currentWord
-      gamePoints {
-        player
-        points
-      }
+      conceptsLists
     }
   }
 `;
@@ -43,6 +40,7 @@ export const GUESS_UPDATE = gql`
         icon
       }
       winner
+      currentWord
     }
   }
 `;
