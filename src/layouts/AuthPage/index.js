@@ -16,7 +16,7 @@ const link = new HttpLink({
   uri:
     process.env.NODE_ENV === "development"
       ? "http://localhost:4000/graphql"
-      : "https://dixit-live.herokuapp.com/graphql",
+      : "https://concept-live.herokuapp.com/graphql",
 });
 
 const client = new ApolloClient({

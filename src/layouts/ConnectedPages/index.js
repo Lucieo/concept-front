@@ -21,14 +21,14 @@ const httpLink = new HttpLink({
   uri:
     process.env.NODE_ENV === "development"
       ? "http://localhost:4000/graphql"
-      : "https://dixit-live.herokuapp.com/graphql",
+      : "https://concept-live.herokuapp.com//graphql",
 });
 
 const wsLink = new WebSocketLink({
   uri:
     process.env.NODE_ENV === "development"
       ? `ws://localhost:4000/graphql`
-      : "wss://dixit-live.herokuapp.com/graphql",
+      : "wss://concept-live.herokuapp.com/graphql",
   options: {
     reconnect: true,
   },
