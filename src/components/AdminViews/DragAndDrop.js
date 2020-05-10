@@ -5,6 +5,7 @@ import uuid from "react-uuid";
 import ReactTooltip from "react-tooltip";
 import { MODIFY_CONCEPTS_LIST, MODIFY_CONCEPT } from "graphQL/mutations";
 import { useMutation } from "@apollo/react-hooks";
+import PropositionsFeedBack from "./PropositionsFeedBack";
 
 const getItemStyle = (isDragging, draggableStyle) => ({
   ...draggableStyle,
@@ -15,10 +16,9 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   marginLeft: 5,
   borderRadius: 5,
   boxShadow: "0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)",
-  width: "100px!important",
+  width: "90px!important",
   background: isDragging ? "lightgreen" : "white",
-  width: "100px",
-  height: "100px",
+  height: "90px",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
@@ -53,10 +53,13 @@ const getListStyle = (isDraggingOver) => ({
 });
 
 const GamePanel = ({ gameInfo }) => {
-  const { currentWord } = gameInfo;
+  const { currentWord, conceptsLists } = gameInfo;
+  const initialConcepts = conceptsLists.map((list) =>
+    list.map((item) => conceptsListInfo.find((concept) => item === concept.img))
+  );
   const gameId = gameInfo.id;
   const [conceptsList, setConcepts] = useState(conceptsListInfo);
-  const [selected, setSelected] = useState([[]]);
+  const [selected, setSelected] = useState(initialConcepts);
 
   const [listIndex, setListIndex] = useState();
   const [listAction, setListAction] = useState();
@@ -141,7 +144,7 @@ const GamePanel = ({ gameInfo }) => {
   return (
     <>
       <DragDropContext onDragEnd={onDragEnd}>
-        <div style={{ display: "flex", height: "calc(100vh - 210px)" }}>
+        <div style={{ display: "flex", height: "calc(100vh - 104px)" }}>
           <div
             style={{
               background: "white",
@@ -174,22 +177,28 @@ const GamePanel = ({ gameInfo }) => {
           >
             <div
               style={{
-                padding: 10,
+                padding: "0px 25px 0px 10px",
                 margin: 0,
                 background: "white",
                 position: "fixed",
-                width: "100%",
+                width: "70%",
+                display: "flex",
+                alignItems: "center",
               }}
             >
-              <h4>Les concepts</h4>
-              <p style={{ fontWeight: "bold" }}>
-                Votre mot est : {currentWord}
-              </p>
+              <div style={{ width: "50%", display: "inline-block" }}>
+                <h4>Les concepts</h4>
+                <p style={{ fontWeight: "bold" }}>
+                  Votre mot est : {currentWord}
+                </p>
+              </div>
+              <div style={{ width: "50%", display: "inline-block" }}>
+                <PropositionsFeedBack gameInfo={gameInfo} />
+              </div>
             </div>
-            <div style={{ paddingTop: 125 }}>
+            <div style={{ paddingTop: 150 }}>
               <Droppable droppableId="concepts" isDropDisabled={true}>
                 {(provided, snapshot) => {
-                  console.log(provided.placeholder);
                   return (
                     <div
                       ref={provided.innerRef}
@@ -219,7 +228,6 @@ const conceptCard = (
   isLine = false,
   removeConcept = undefined
 ) => {
-  const id = item.img.split(".")[0];
   if (item.img) {
     return (
       <Draggable
@@ -273,7 +281,7 @@ const conceptCard = (
                   style={
                     isLine
                       ? { width: 40, height: 40 }
-                      : { width: 80, height: 80 }
+                      : { width: 70, height: 70 }
                   }
                 />
               </div>
@@ -282,7 +290,7 @@ const conceptCard = (
               <div style={getItemStyle(snapshot.isDragging)}>
                 <img
                   src={`/images/concepts/${item.img}`}
-                  style={{ width: 80, height: 80 }}
+                  style={{ width: 70, height: 70 }}
                 />
               </div>
             )}
@@ -315,7 +323,7 @@ const SelectionLine = (lineInfo, idx, deleteAction, removeConcept) => {
       {lineInfo.length ? (
         <>
           {lineInfo.map((el, idx) => (
-            <p>{el.text}</p>
+            <p key={idx}>{el.text}</p>
           ))}
         </>
       ) : (

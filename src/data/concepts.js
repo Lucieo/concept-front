@@ -8,6 +8,8 @@ export default [
   { id: uuid(), img: "genderfree.svg", text: "GenderFree" },
   { id: uuid(), img: "children.svg", text: "Jeune - Nouveau - Enfant - Bébé" },
   { id: uuid(), img: "old.svg", text: "Vieux - Ancien - Passé" },
+  { id: uuid(), img: "history.svg", text: "Réel - Historique " },
+  { id: uuid(), img: "mermaid.svg", text: "Fictif - Imaginaire " },
 
   { id: uuid(), img: "", text: "Les catégories" },
   { id: uuid(), img: "fauna.svg", text: "Faune - Animal" },

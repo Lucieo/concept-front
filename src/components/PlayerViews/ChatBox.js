@@ -4,6 +4,7 @@ import { GUESS_ACTION } from "graphQL/mutations";
 import { useSubscription, useMutation } from "@apollo/react-hooks";
 import HasWon from "components/HasWon";
 import PlayerAnswer from "components/PlayerAnswer";
+import { ReactComponent as Mind } from "images/mind.svg";
 
 export default function ChatBox({ gameInfo }) {
   const gameId = gameInfo.id;
@@ -52,7 +53,12 @@ export default function ChatBox({ gameInfo }) {
               <PlayerAnswer {...proposition} key={idx} />
             ))
           ) : (
-            <p>Pas de proposition pour le moment</p>
+            <div className="chatBox__noFeedback">
+              <Mind style={{ height: 150, width: 150 }} />
+              <p className="center">
+                Il est temps d'agiter ses petits neuronnes!
+              </p>
+            </div>
           )}
         </div>
         <div className="chatBox__input">

@@ -29,12 +29,20 @@ export default function ConceptDisplay({ gameInfo }) {
 }
 
 const ConceptLine = ({ items, idx }) => {
+  const concepts = items.map((item) =>
+    conceptsList.find((el) => el.img === item)
+  );
   return (
     <div>
       {idx === 0 ? <h6>Concept Principal</h6> : <h6>Concept {idx + 1}</h6>}
+      {concepts.map((el) => (
+        <p>{el.text}</p>
+      ))}
       <div className="playerView__list">
         {items.length > 0 ? (
-          items.map((img, idx) => <ConceptItem img={img} key={idx} />)
+          concepts.map((concept, idx) => (
+            <ConceptItem concept={concept} key={idx} />
+          ))
         ) : (
           <p>Aucun sous-concept sélectionné dans cette catégorie</p>
         )}
@@ -44,25 +52,15 @@ const ConceptLine = ({ items, idx }) => {
   );
 };
 
-const ConceptItem = ({ img }) => {
-  const conceptItem = conceptsList.find((el) => el.img === img);
+const ConceptItem = ({ concept }) => {
   return (
-    <a
-      data-for={conceptItem.id}
-      data-tip={conceptItem.text}
-      data-iscapture="true"
-    >
+    <a data-for={concept.id} data-tip={concept.text} data-iscapture="true">
       <div className="card playerView__concept">
         <img
-          src={`/images/concepts/${img}`}
+          src={`/images/concepts/${concept.img}`}
           style={{ width: 80, height: 80 }}
         />
-        <ReactTooltip
-          id={conceptItem.id}
-          place="top"
-          type="dark"
-          effect="solid"
-        />
+        <ReactTooltip id={concept.id} place="top" type="dark" effect="solid" />
       </div>
     </a>
   );

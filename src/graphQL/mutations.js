@@ -60,8 +60,8 @@ export const INIT_GAME = gql`
 `;
 
 export const GUESS_ACTION = gql`
-  mutation GuessAction($gameId: ID!, $word: String!) {
-    guessAction(gameId: $gameId, word: $word) {
+  mutation GuessAction($gameId: ID!, $word: String!, $action: String) {
+    guessAction(gameId: $gameId, word: $word, action: $action) {
       gameId
     }
   }
