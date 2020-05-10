@@ -325,7 +325,7 @@ const SelectionLine = (lineInfo, idx, deleteAction, removeConcept) => {
       {lineInfo.length ? (
         <>
           {lineInfo.map((el, idx) => (
-            <p key={idx}>{el.text}</p>
+            <span key={idx}>{el.text} |</span>
           ))}
         </>
       ) : (
