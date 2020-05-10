@@ -21,7 +21,7 @@ const httpLink = new HttpLink({
   uri:
     process.env.NODE_ENV === "development"
       ? "http://localhost:4000/graphql"
-      : "https://concept-live.herokuapp.com//graphql",
+      : "https://concept-live.herokuapp.com/graphql",
 });
 
 const wsLink = new WebSocketLink({
