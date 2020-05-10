@@ -5,12 +5,13 @@ import PlayerViews from "components/PlayerViews";
 import Podium from "components/Podium";
 
 const ActiveGame = ({ gameInfo, userId }) => {
-  const { players, turn, currentWord } = gameInfo;
+  const { players, turn, gamePoints } = gameInfo;
   const playerPosition = players.map((player) => player.id).indexOf(userId);
   const isTurnAdmin = playerPosition === turn;
 
   return (
     <div className="active-game">
+      {gamePoints.length > 0 && <Podium gamePoints={gamePoints} />}
       {isTurnAdmin ? (
         <AdminViews gameInfo={gameInfo} userId={userId} />
       ) : (

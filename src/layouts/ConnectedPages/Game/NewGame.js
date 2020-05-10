@@ -60,6 +60,18 @@ const NewGame = ({ gameId, playerslist, creatorId }) => {
       <div className="row">
         <div className="new-game__rules col m6 s12">
           <p className="new-game__rules-title center">Comment ça marche?</p>
+          <p>
+            Tour à tour chaque joueur fait deviner un mot à l'aide des vignettes
+            de concepts.
+          </p>
+          <p>
+            Les concepts peuvent être réunis en 1 ou plusieurs sous concepts.
+          </p>
+          <p>Un joueur peut utiliser au maximum 4 sous concepts</p>
+          <p>
+            Le premier à deviner gagne 2 points, le joueur faisant deviner en
+            gagne 1.
+          </p>
         </div>
         <div className="col m6 s12 new-game__players">
           <p className="new-game__players-title">

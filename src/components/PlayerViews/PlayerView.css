@@ -1,6 +1,6 @@
 .playerView__wrapper {
   display: flex;
-  height: calc(100vh - 110px);
+  height: calc(100vh - 181px);
 }
 
 .playerView__conceptDisplay {

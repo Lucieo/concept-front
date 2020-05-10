@@ -1,10 +1,9 @@
 import React from "react";
-import { ReactComponent as Hat } from "images/hat.svg";
-import { ReactComponent as Brain } from "images/brain.svg";
-import { ReactComponent as Knight } from "images/knight.svg";
-import { ReactComponent as King } from "images/crown.svg";
-import { ReactComponent as Carnival } from "images/carnival.svg";
-import { ReactComponent as God } from "images/god.svg";
+import { ReactComponent as Level1 } from "images/level1.svg";
+import { ReactComponent as Level2 } from "images/level2.svg";
+import { ReactComponent as Level3 } from "images/level3.svg";
+import { ReactComponent as Level4 } from "images/level3.svg";
+
 import "./GameStatus.css";
 
 export default function GameStatus({ user }) {
@@ -13,43 +12,29 @@ export default function GameStatus({ user }) {
     if (level < 5) {
       return (
         <>
-          <p>Doux rêveur</p>
-          <Hat className="gamestatus__svg" />
+          <p>Conceptochou</p>
+          <Level1 className="gamestatus__svg" />
         </>
       );
     } else if (level < 10) {
       return (
         <>
-          <p>Saltimbanque poétique</p>
-          <Carnival className="gamestatus__svg" />
-        </>
-      );
-    } else if (level < 15) {
-      return (
-        <>
-          <p>Chevalier philosophe</p>
-          <Knight className="gamestatus__svg" />
+          <p>Conceptino </p>
+          <Level2 className="gamestatus__svg" />
         </>
       );
     } else if (level < 20) {
       return (
         <>
-          <p>Roi de la métaphore</p>
-          <King className="gamestatus__svg" />
+          <p>Conceptosaure</p>
+          <Level3 className="gamestatus__svg" />
         </>
       );
-    } else if (level < 25) {
+    } else if (level >= 20) {
       return (
         <>
-          <p>Prophète Onirique</p>
-          <Brain className="gamestatus__svg" />
-        </>
-      );
-    } else if (level >= 25) {
-      return (
-        <>
-          <p>Dieu de l'implicite</p>
-          <God className="gamestatus__svg" />
+          <p>MegaloConceptodon</p>
+          <Level4 className="gamestatus__svg" />
         </>
       );
     }

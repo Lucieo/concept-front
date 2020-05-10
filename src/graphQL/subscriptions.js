@@ -14,6 +14,13 @@ export const GAME_UPDATE = gql`
       }
       currentWord
       conceptsLists
+      gamePoints {
+        player {
+          name
+          icon
+        }
+        points
+      }
     }
   }
 `;

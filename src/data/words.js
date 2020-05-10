@@ -4073,7 +4073,7 @@ export default [
   "Ridley Scott",
   "Rien de nouveau sous le soleil",
   "Rien ne se perd, rien ne se crée, tout se transforme.",
-  "Rien ne sert de courir ; il faut partir à point",
+  "Rien ne sert de courir il faut partir à point",
   "Rien n'est joué",
   "Rihanna",
   "Rira bien qui rira le dernier",

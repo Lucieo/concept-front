@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./HasWon.css";
 import { NEXT_TURN } from "graphQL/mutations";
 import { useMutation } from "@apollo/react-hooks";
@@ -13,7 +13,10 @@ export default function HasWon({
   isTurnMaster = false,
   gameId = undefined,
 }) {
-  const [nextTurn] = useMutation(NEXT_TURN, { variables: { gameId } });
+  const [nextTurn, { loading }] = useMutation(NEXT_TURN, {
+    variables: { gameId },
+  });
+  const [blocked, setBlocked] = useState(false);
   return (
     <div className="overlay">
       <div className="card hasWon__card">
@@ -41,7 +44,16 @@ export default function HasWon({
           </>
         )}
         {isTurnMaster && (
-          <button className="btn" onClick={nextTurn}>
+          <button
+            className={`btn ${(blocked || loading) && "disabled"}`}
+            onClick={() => {
+              setBlocked(true);
+              nextTurn();
+            }}
+          >
+            {(blocked || loading) && (
+              <i className="material-icons">access_time</i>
+            )}
             Passer au prochain tour
           </button>
         )}

@@ -34,6 +34,13 @@ export const GET_GAME_INFO = gql`
       creator
       currentWord
       conceptsLists
+      gamePoints {
+        player {
+          name
+          icon
+        }
+        points
+      }
     }
   }
 `;
