@@ -144,7 +144,7 @@ const GamePanel = ({ gameInfo }) => {
   return (
     <>
       <DragDropContext onDragEnd={onDragEnd}>
-        <div style={{ display: "flex", height: "calc(100vh - 104px)" }}>
+        <div style={{ display: "flex" }}>
           <div
             style={{
               background: "white",
@@ -180,8 +180,6 @@ const GamePanel = ({ gameInfo }) => {
                 padding: "0px 25px 0px 10px",
                 margin: 0,
                 background: "white",
-                position: "fixed",
-                width: "70%",
                 display: "flex",
                 alignItems: "center",
               }}
@@ -191,12 +189,16 @@ const GamePanel = ({ gameInfo }) => {
                 <p style={{ fontWeight: "bold" }}>
                   Votre mot est : {currentWord}
                 </p>
+                <i>
+                  Faites glisser les concepts vers la gauche pour les classer
+                  dans les catégories que vous aurez créé.
+                </i>
               </div>
               <div style={{ width: "50%", display: "inline-block" }}>
                 <PropositionsFeedBack gameInfo={gameInfo} />
               </div>
             </div>
-            <div style={{ paddingTop: 150 }}>
+            <div style={{ overflow: "scroll", height: "500px" }}>
               <Droppable droppableId="concepts" isDropDisabled={true}>
                 {(provided, snapshot) => {
                   return (

@@ -56,7 +56,7 @@ export default function ChatBox({ gameInfo }) {
             <div className="chatBox__noFeedback">
               <Mind style={{ height: 150, width: 150 }} />
               <p className="center">
-                Il est temps d'agiter ses petits neuronnes!
+                Il est temps d'agiter ses petits neurones!
               </p>
             </div>
           )}

@@ -36,7 +36,7 @@ const ConceptLine = ({ items, idx }) => {
     <div>
       {idx === 0 ? <h6>Concept Principal</h6> : <h6>Concept {idx + 1}</h6>}
       {concepts.map((el) => (
-        <p>{el.text}</p>
+        <span>{el.text} | </span>
       ))}
       <div className="playerView__list">
         {items.length > 0 ? (
